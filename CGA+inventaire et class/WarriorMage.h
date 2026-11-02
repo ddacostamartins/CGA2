@@ -2,10 +2,10 @@
 
 #include "Player.h"
 
-class Tank : public Player
+class WarriorMage : public Player
 {
 public:
-    Tank();
+    WarriorMage();
 
     void Displaystat() const override;
 };

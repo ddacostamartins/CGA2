@@ -1,13 +1,13 @@
 #include <iostream>
-#include "Rogue.h"
+#include "Warrior.h"
 
-Rogue::Rogue() : Player(4, 7, 3)
+Warrior::Warrior() : Player(10, 4, 5,0)
 {
 }
 
-void Rogue::Displaystat() const
+void Warrior::Displaystat() const
 {
-    std::cout << GetName() << " = Rogue\n";
+    std::cout << GetName() << " = Warrior\n";
     std::cout << "Life : " << GetLife() << '\n';
     std::cout << "Damage : " << GetTotalDamage() << '\n';
     std::cout << "Armor : " << GetArmor() << '\n';

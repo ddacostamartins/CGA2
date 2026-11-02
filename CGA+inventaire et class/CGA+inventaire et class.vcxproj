@@ -102,13 +102,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ddacostamartins\source\repos\PDCurses;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gcaule\Documents\GitHub\CGA2\CGA+inventaire et class\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\ddacostamartins\source\repos\PDCurses;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>pdcurse.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\gcaule\Documents\GitHub\CGA2\CGA+inventaire et class\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,18 +131,18 @@
   <ItemGroup>
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="CGA+inventaire et class.cpp" />
-    <ClCompile Include="Guerrier.cpp" />
+    <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Rogue.cpp" />
-    <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="WarriorMage.cpp" />
+    <ClCompile Include="Warrior.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
-    <ClInclude Include="Guerrier.h" />
+    <ClInclude Include="Mage.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Rogue.h" />
-    <ClInclude Include="Tank.h" />
+    <ClInclude Include="WarriorMage.h" />
+    <ClInclude Include="Warrior.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

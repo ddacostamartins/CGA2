@@ -14,12 +14,14 @@ protected:
     int Damage;
     int Armor;
     int MaxLife;
+    int Mana;
+    int Maxmana;
 
     Weapon weapon;
     Armors armor;
 
 public:
-    Player(int life, int damage, int armorValue, int maxLife = 20);
+    Player(int life, int damage, int armorValue, int mana, int maxLife = 20, int maxmana=100);
 
     int GetLife() const;
     void SetLife(int value);
@@ -41,4 +43,7 @@ public:
 
     virtual ~Player() = default;
     virtual void Displaystat() const = 0;
+
+    int GetMana() const;
+    void SetMana(int value);
 };

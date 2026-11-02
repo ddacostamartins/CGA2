@@ -3,11 +3,13 @@
 #include <algorithm>
 #include <string>
 
-Player::Player(int life, int damage, int armorValue, int maxLife)
+Player::Player(int life, int damage, int armorValue, int maxLife, int mana,int maxmana) 
     : Life(life),
     Damage(damage),
     Armor(armorValue),
-    MaxLife(maxLife)
+    MaxLife(maxLife),
+    Maxmana(maxmana),
+    Mana(mana)
 {
     if (MaxLife < 0)
         MaxLife = 0;
@@ -23,6 +25,15 @@ Player::Player(int life, int damage, int armorValue, int maxLife)
 
     if (Armor < 0)
         Armor = 0;
+
+    if (Mana < 0)
+        Mana = 0;
+
+    if (Maxmana < 0)
+        Maxmana = 0;
+
+    if (Mana > Maxmana)
+        Mana = Maxmana;
 }
 
 int Player::GetLife() const
@@ -111,4 +122,22 @@ void Player::SetName(const std::string& value)
 std::string Player::GetName() const
 {
     return Playername;
+}
+
+
+
+int Player::GetMana() const
+{
+    return Mana;
+}
+
+void Player::SetMana(int value)
+{
+    if (value < 0)
+        value = 0;
+
+    if (value > Maxmana)
+        value = Maxmana;
+
+    Mana = value;
 }

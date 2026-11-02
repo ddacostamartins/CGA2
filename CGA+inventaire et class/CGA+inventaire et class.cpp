@@ -3,14 +3,19 @@
 #include <ctime>
 #include <cstdlib>
 #include <windows.h>
-#include <conio.h>
 
 #include "Player.h"
-#include "Tank.h"
-#include "Guerrier.h"
-#include "Rogue.h"
+#include "Warrior.h"
+#include "Mage.h"
+#include "WarriorMage.h"
 
 int main()
 {
+	Warrior player1;
+	Mage player2;
+	WarriorMage player3;
 
+	player1.Displaystat();
+	player2.Displaystat();
+	player3.Displaystat();
 }
