@@ -1,8 +1,8 @@
 #include <iostream>
-#include <curses.h>
 #include <ctime>
 #include <cstdlib>
 #include <windows.h>
+#include <curses.h>
 
 #include "Player.h"
 #include "Warrior.h"

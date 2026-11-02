@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <string>
 
-Player::Player(int life, int damage, int armorValue, int maxLife, int mana,int maxmana) 
+Player::Player(int life, int damage, int armorValue, int mana, int maxLife,int maxmana)
     : Life(life),
     Damage(damage),
     Armor(armorValue),

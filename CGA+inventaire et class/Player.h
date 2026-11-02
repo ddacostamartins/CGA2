@@ -13,8 +13,8 @@ protected:
     int Life;
     int Damage;
     int Armor;
-    int MaxLife;
     int Mana;
+    int MaxLife;
     int Maxmana;
 
     Weapon weapon;
