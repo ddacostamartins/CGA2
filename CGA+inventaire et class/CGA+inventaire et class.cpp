@@ -1,21 +1,10 @@
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <windows.h>
-#include <curses.h>
+#include "Jeu.h"
 
-#include "Player.h"
-#include "Warrior.h"
-#include "Mage.h"
-#include "WarriorMage.h"
+// =========================
+// PROGRAMME PRINCIPAL
+// =========================
 
 int main()
 {
-	Warrior player1;
-	Mage player2;
-	WarriorMage player3;
-
-	player1.Displaystat();
-	player2.Displaystat();
-	player3.Displaystat();
+    lancerjeu();
 }

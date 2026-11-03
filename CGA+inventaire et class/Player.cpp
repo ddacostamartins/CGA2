@@ -1,15 +1,18 @@
 #include "Player.h"
+#include "Map.h"
 
 #include <algorithm>
 #include <string>
 
-Player::Player(int life, int damage, int armorValue, int mana, int maxLife,int maxmana)
+Player::Player(int life, int damage, int armorValue, int mana, int playerX, int playerY, int maxLife, int maxmana)
     : Life(life),
     Damage(damage),
     Armor(armorValue),
+    Mana(mana),
+    PlayerX(playerX),
+    PlayerY(playerY),
     MaxLife(maxLife),
-    Maxmana(maxmana),
-    Mana(mana)
+    Maxmana(maxmana)
 {
     if (MaxLife < 0)
         MaxLife = 0;
@@ -124,8 +127,6 @@ std::string Player::GetName() const
     return Playername;
 }
 
-
-
 int Player::GetMana() const
 {
     return Mana;
@@ -140,4 +141,36 @@ void Player::SetMana(int value)
         value = Maxmana;
 
     Mana = value;
+}
+
+int Player::GetPlayerX() const
+{
+    return PlayerX;
+}
+
+void Player::SetPlayerX(int value)
+{
+    if (value < 0)
+        value = 0;
+
+    if (value >= MAP_WIDTH)
+        value = MAP_WIDTH - 1;
+
+    PlayerX = value;
+}
+
+int Player::GetPlayerY() const
+{
+    return PlayerY;
+}
+
+void Player::SetPlayerY(int value)
+{
+    if (value < 0)
+        value = 0;
+
+    if (value >= MAP_HEIGHT)
+        value = MAP_HEIGHT - 1;
+
+    PlayerY = value;
 }

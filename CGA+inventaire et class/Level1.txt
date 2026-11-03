@@ -1,0 +1,15 @@
+AAAAAAAAAAAAAAAAAAAA
+A..................A
+A..AAA.............A
+A...........~~~....A
+A...........~~~....A
+A..A...............A
+A..A....AAA........A
+A.................AA
+A..................A
+AAAAAAAAAAAAAAAAAAAA
+---
+HERO 1 1
+EXIT 18 8
+ENEMY 6 2 5 2
+ENEMY 15 6 7 3

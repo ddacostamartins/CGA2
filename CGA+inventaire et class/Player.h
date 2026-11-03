@@ -10,18 +10,24 @@ private:
     std::string Playername = "Default name";
 
 protected:
+
     int Life;
     int Damage;
     int Armor;
     int Mana;
     int MaxLife;
     int Maxmana;
+    int PlayerX;
+    int PlayerY;
 
     Weapon weapon;
     Armors armor;
 
 public:
-    Player(int life, int damage, int armorValue, int mana, int maxLife = 20, int maxmana=100);
+
+    virtual const char* GetClassName() const = 0;
+
+    Player(int life, int damage, int armorValue, int mana, int positionX = 0, int positionY = 0, int maxLife = 20, int maxmana = 100);
 
     int GetLife() const;
     void SetLife(int value);
@@ -46,4 +52,15 @@ public:
 
     int GetMana() const;
     void SetMana(int value);
+
+    int GetPlayerX() const;
+    int GetPlayerY() const;
+
+    void SetPlayerX(int value);
+    void SetPlayerY(int value);
+
+    virtual bool CanCastSpell() const
+    {
+        return false;
+    }
 };

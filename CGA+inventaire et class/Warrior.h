@@ -8,4 +8,9 @@ public:
     Warrior();
 
     void Displaystat() const override;
+
+    const char* GetClassName() const override
+    {
+        return "Guerrier";
+    }
 };
