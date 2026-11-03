@@ -1,3 +1,3 @@
 # CGA2
-# David
-# Gabriel C
+David
+Gabriel C
