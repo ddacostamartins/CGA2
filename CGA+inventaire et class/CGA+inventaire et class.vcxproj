@@ -133,6 +133,7 @@
     <ClCompile Include="CGA+inventaire et class.cpp" />
     <ClCompile Include="ChoixClasse.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FonctionJeu.cpp" />
     <ClCompile Include="Jeu.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Mage.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Armor.h" />
     <ClInclude Include="ChoixClasse.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FonctionJeu.h" />
     <ClInclude Include="Jeu.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Mage.h" />
