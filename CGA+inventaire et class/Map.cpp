@@ -83,9 +83,9 @@ void displayMap(Player& player, Level& level, int currentLevel)
             {
                 for (int i = 0; i < level.enemyCount; i++)
                 {
-                    if (level.enemies[i].Life > 0 &&
-                        x == level.enemies[i].x &&
-                        y == level.enemies[i].y)
+                    if (level.enemies[i].GetEnemyLife() > 0 &&
+                        x == level.enemies[i].GetEnemyX() &&
+                        y == level.enemies[i].GetEnemyY())
                     {
                         attron(COLOR_PAIR(2));
                         mvaddch(screenY, screenX, 'X');

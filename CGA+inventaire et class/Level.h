@@ -1,10 +1,12 @@
 #pragma once
 
 #include <string>
+#include "Enemy.h"
+
 
 const int MAP_WIDTH = 20;
 const int MAP_HEIGHT = 10;
-const int MAX_ENEMIES = 5;
+constexpr int MAX_ENEMIES = 5;
 
 class Exit {
 public:
@@ -13,14 +15,6 @@ public:
     int y = 0;
 };
 
-class Enemy {
-public:
-    std::string nom = "Ennemi";
-    int Life = 2;
-    int damage = 1;
-    int x = 0;
-    int y = 0;
-};
 
 class Level{
 public:

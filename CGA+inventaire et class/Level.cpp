@@ -1,5 +1,6 @@
 #include "Level.h"
-
+#include "Enemy.h"
+#include "Attack.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -228,14 +229,14 @@ bool loadLevel(int numero, Level& level) {
                 std::cout << "Caracteristiques ennemi invalides.\n";
                 return false;
             }
+            
+            Enemy& enemy = level.enemies[MAX_ENEMIES];
 
-            Enemy enemy;
-
-            enemy.nom = "Ennemi";
-            enemy.Life = life;
-            enemy.damage = damage;
-            enemy.x = x;
-            enemy.y = y;
+            enemy.SetEnemyName("Enemi");
+            enemy.SetEnemyLife(enemy.GetEnemyLife());
+            enemy.SetEnemyDamage(damage);
+            enemy.SetEnemyX(x);
+            enemy.SetEnemyY(y);
 
             level.enemies[level.enemyCount] = enemy;
             level.enemyCount++;
@@ -286,8 +287,8 @@ bool loadLevel(int numero, Level& level) {
     // Aucun ennemi ne doit commencer dans un mur
     for (int i = 0; i < level.enemyCount; i++) {
 
-        int x = level.enemies[i].x;
-        int y = level.enemies[i].y;
+        int x = level.enemies[i].GetEnemyX();
+        int y = level.enemies[i].GetEnemyY();
 
         if (level.Map[y * MAP_WIDTH + x] == 1) {
             std::cout << "ERREUR : l'ennemi " << i + 1

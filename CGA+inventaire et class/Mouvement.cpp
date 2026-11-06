@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "Spell.h"
 #include "Enemy.h"
+#include "Attack.h"
 
 // ====================================
 // VERIFICATION DES MOUVEMENT POSSIBLE
@@ -34,8 +35,8 @@ bool canMoveTo(const Level& level, int x, int y,
         if (i == ignoredEnemy)
             continue;
 
-        if (level.enemies[i].x == x &&
-            level.enemies[i].y == y)
+        if (level.enemies[i].GetEnemyX() == x &&
+            level.enemies[i].GetEnemyY() == y)
             return false;
     }
 
@@ -149,9 +150,9 @@ bool movementhero(Player& player, Level& level)
     // Vérifier si une case contient un ennemi
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].Life > 0 &&
-            level.enemies[i].x == newX &&
-            level.enemies[i].y == newY)
+        if (level.enemies[i].GetEnemyLife() > 0 &&
+            level.enemies[i].GetEnemyX() == newX &&
+            level.enemies[i].GetEnemyY() == newY)
         {
             playerAttack(player, level, i);
             player.SetMana(player.GetMana() + 5);
@@ -177,11 +178,11 @@ void enemymovement(Level& level)
 {
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].Life <= 0)
+        if (level.enemies[i].GetEnemyLife() <= 0)
             continue;
 
-        int newX = level.enemies[i].x;
-        int newY = level.enemies[i].y;
+        int newX = level.enemies[i].GetEnemyX();
+        int newY = level.enemies[i].GetEnemyY();
 
         // Choisir une direction aleatoire
         switch (rand() % 4)
@@ -196,7 +197,7 @@ void enemymovement(Level& level)
         if (!canMoveTo(level, newX, newY, i))
             continue;
 
-        level.enemies[i].x = newX;
-        level.enemies[i].y = newY;
+        level.enemies[i].SetEnemyX(newX);
+        level.enemies[i].SetEnemyY(newY);
     }
 }

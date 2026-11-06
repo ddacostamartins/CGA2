@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "Mouvement.h"
 #include "ChoixClasse.h"
+#include "Attack.h"
 
 void initialiserJeu()
 {

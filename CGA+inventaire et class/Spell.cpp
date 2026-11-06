@@ -52,8 +52,8 @@ void displaySpellTargeting(Level& level, Player& player)
 
             for (int i = 0; i < level.enemyCount; i++)
             {
-                if (x == level.enemies[i].x &&
-                    y == level.enemies[i].y)
+                if (x == level.enemies[i].GetEnemyX() &&
+                    y == level.enemies[i].GetEnemyY())
                 {
                     enemyFound = true;
                     break;
@@ -95,8 +95,8 @@ bool castSpell(Level& level, Player& player)
     // Vérifier qu'un ennemi se trouve sur la case ciblée
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].x == targetX &&
-            level.enemies[i].y == targetY)
+        if (level.enemies[i].GetEnemyX() == targetX &&
+            level.enemies[i].GetEnemyY() == targetY)
         {
             // Retirer le mana
             player.SetMana(player.GetMana() - SPELL_COST);
@@ -104,10 +104,10 @@ bool castSpell(Level& level, Player& player)
             // Les dégâts du sort correspondent aux dégâts du héros
             int spellDamage = player.GetDamage();
 
-            level.enemies[i].Life -= spellDamage;
+            level.enemies[i].SetEnemyLife(level.enemies[i].GetEnemyLife() - spellDamage);
 
             // Supprimer l'ennemi s'il est mort
-            if (level.enemies[i].Life <= 0)
+            if (level.enemies[i].GetEnemyLife() <= 0)
             {
                 for (int j = i; j < level.enemyCount - 1; j++)
                 {

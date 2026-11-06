@@ -1,80 +1,81 @@
-#include <iostream>
-#include <conio.h>
-#include <cstdlib>
-#include <ctime>
-#include <curses.h>
-
 #include "Enemy.h"
-#include "Player.h"
+#include "Map.h"
 
-// =========================
-// ATTAQUE DES ENNEMIS
-// =========================
-void enemyattack(Player& player, const Level& level)
+Enemy::Enemy(int enemyLife, int enemyDamage, int enemyX, int enemyY, int maxEnemyLife)
+	:EnemyLife(enemyLife),
+	EnemyDamage(enemyDamage),
+	EnemyX(enemyX),
+	EnemyY(enemyY),
+	MaxEnemyLife(maxEnemyLife)
 {
-    for (int i = 0; i < level.enemyCount; i++) {
+    if (MaxEnemyLife < 0)
+        MaxEnemyLife = 0;
 
-        if (level.enemies[i].Life <= 0)
-            continue;
+    if (EnemyLife < 0)
+        EnemyLife = 0;
 
-        if (player.GetPlayerX() == level.enemies[i].x &&
-            player.GetPlayerY() == level.enemies[i].y) 
-        {
-            player.SetLife(player.GetLife() - level.enemies[i].damage);
+    if (EnemyLife > MaxEnemyLife)
+        EnemyLife = MaxEnemyLife;
 
-            if (player.GetLife() <= 0) {
-                clear();
-                refresh();
-                attron(COLOR_PAIR(2));
-                printw("===== GAME OVER =====\n");
-                printw("Appuie sur une touche...");
-                attroff(COLOR_PAIR(2));
-                getch();
-                exit(0);
-            }
-
-            // Un seul degat par tour
-            break;
-        }
-    }
+    if (EnemyDamage < 0)
+        EnemyDamage = 0;
+}
+int Enemy::GetEnemyLife() const
+{
+    return EnemyLife;
 }
 
-// =========================
-// ATTAQUE DU JOUEUR
-// =========================
-
-void playerAttack(Player& player, Level& level, int enemyIndex)
+void Enemy::SetEnemyLife(int value)
 {
-    if (enemyIndex < 0 || enemyIndex >= level.enemyCount)
-        return;
+    if (value < 0)
+        value = 0;
 
-    Enemy& enemy = level.enemies[enemyIndex];
+    if (value > MaxEnemyLife)
+        value = MaxEnemyLife;
 
-    if (enemy.Life <= 0)
-        return;
+    EnemyLife = value;
+}
 
-    int damage = player.GetTotalDamage();
+int Enemy::GetEnemyDamage() const
+{
+    return EnemyDamage;
+}
 
-    enemy.Life -= damage;
+void Enemy::SetEnemyDamage(int value)
+{
+    if (value < 0)
+        value = 0;
 
-    clear();
+    EnemyDamage = value;
+}
+int Enemy::GetEnemyX() const
+{
+    return EnemyX;
+}
 
-    attron(COLOR_PAIR(3));
-    printw("===== ATTAQUE DU JOUEUR =====\n");
-    printw("Tu attaques %s !\n", enemy.nom.c_str());
-    printw("Tu infliges %d degats !\n", damage);
-    attroff(COLOR_PAIR(3));
+void Enemy::SetEnemyX(int value)
+{
+    if (value < 0)
+        value = 0;
 
-    if (enemy.Life <= 0)
-    {
-        enemy.Life = 0;
+    if (value >= MAP_WIDTH)
+        value = MAP_WIDTH - 1;
 
-        attron(COLOR_PAIR(4));
-        printw("L'ennemi est mort !\n");
-        attroff(COLOR_PAIR(4));
-    }
+    EnemyX = value;
+}
 
-    printw("\nAppuie sur une touche...");
-    refresh();
-    getch();
+int Enemy::GetEnemyY() const
+{
+    return EnemyY;
+}
+
+void Enemy::SetEnemyY(int value)
+{
+    if (value < 0)
+        value = 0;
+
+    if (value >= MAP_HEIGHT)
+        value = MAP_HEIGHT - 1;
+
+    EnemyY = value;
 }
