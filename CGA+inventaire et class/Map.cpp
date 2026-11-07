@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Player.h"
+#include "FonctionMap.h"
 
 #include <curses.h>
 
@@ -19,83 +20,33 @@ void displayMap(Player& player, Level& level, int currentLevel)
 {
     clear();
 
-    // Titre
-    attron(COLOR_PAIR(6));
-    mvprintw(0, 2, "========== NIVEAU %d ==========", currentLevel);
-    attroff(COLOR_PAIR(6));
+    displayLevelTitle(currentLevel);
 
-    // CARTE
     for (int y = 0; y < MAP_HEIGHT; y++)
     {
         for (int x = 0; x < MAP_WIDTH; x++)
         {
-            int cell = level.Map[y * MAP_WIDTH + x];
+            displayTerrain(x, y, level);
 
-            int color = 8;
-            char symbole = '.';
-
-            // Terrain
-            if (cell == 0)
-            {
-                symbole = '.';
-                color = 8;
-            }
-            else if (cell == 1)
-            {
-                symbole = '#';
-                color = 4;
-            }
-            else if (cell == 2)
-            {
-                symbole = '~';
-                color = 7;
-            }
-
-            // COORDONNEES GRAPHIQUES
-            int screenY = y + 2;
-            int screenX = x * 2 + 2;
-
-            // Dessiner le terrain
-            attron(COLOR_PAIR(color));
-            mvaddch(screenY, screenX, symbole);
-            attroff(COLOR_PAIR(color));
-
-            // HEROS
             if (x == player.GetPlayerX() &&
                 y == player.GetPlayerY())
             {
-                attron(COLOR_PAIR(3));
-                mvaddch(screenY, screenX, 'H');
-                attroff(COLOR_PAIR(3));
+                displayHero(player, x, y);
             }
-
-            // SORTIE
             else if (x == level.sortie.x &&
                 y == level.sortie.y)
             {
-                attron(COLOR_PAIR(6));
-                mvaddch(screenY, screenX, 'E');
-                attroff(COLOR_PAIR(6));
+                displayExit(level, x, y);
             }
-
-            // ENNEMIS
             else
             {
-                for (int i = 0; i < level.enemyCount; i++)
-                {
-                    if (level.enemies[i].Life > 0 &&
-                        x == level.enemies[i].x &&
-                        y == level.enemies[i].y)
-                    {
-                        attron(COLOR_PAIR(2));
-                        mvaddch(screenY, screenX, 'X');
-                        attroff(COLOR_PAIR(2));
-                        break;
-                    }
-                }
+                displayEnemies(level, x, y);
             }
         }
     }
+
+    refresh();
+}
 
     // =========================
     // STATISTIQUES DU PERSONNAGE

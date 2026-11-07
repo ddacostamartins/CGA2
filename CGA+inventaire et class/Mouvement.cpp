@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "Spell.h"
 #include "Enemy.h"
+#include "FonctionMouvement.h"
 
 // ====================================
 // VERIFICATION DES MOUVEMENT POSSIBLE
@@ -54,45 +55,10 @@ bool movementhero(Player& player, Level& level)
         return false;
 
     if (key == 27)
-    {
-        if (targetingSpell)
-        {
-            targetingSpell = false;
-            spellCancelled = true;
-            return true;
-        }
-
-        endwin();
-        exit(0);
-    }
+        return handleEscape();
 
     if (key == 'e' || key == 'E')
-    {
-        // Vérifier la classe
-        if (!player.CanCastSpell())
-        {
-            mvprintw(MAP_HEIGHT + 8, 2,
-                "Cette classe ne peut pas utiliser de sort !");
-            refresh();
-            return false;
-        }
-
-        // Vérifier le mana
-        if (player.GetMana() < SPELL_COST)
-        {
-            mvprintw(MAP_HEIGHT + 8, 2,
-                "Mana insuffisant ! Il faut 20 mana.");
-            refresh();
-            return false;
-        }
-
-        // Activer le ciblage
-        targetingSpell = true;
-        targetX = player.GetPlayerX();
-        targetY = player.GetPlayerY();
-
-        return true;
-    }
+        return startSpellTargeting(player);
 
     if (targetingSpell)
     {
@@ -103,70 +69,10 @@ bool movementhero(Player& player, Level& level)
             return true;
         }
 
-        switch (key)
-        {
-        case 'z': case 'Z': targetY--; break;
-        case 's': case 'S': targetY++; break;
-        case 'q': case 'Q': targetX--; break;
-        case 'd': case 'D': targetX++; break;
-        default:
-            return false;
-        }
-
-        if (targetX < player.GetPlayerX() - SPELL_RADIUS) targetX = player.GetPlayerX() - SPELL_RADIUS;
-        if (targetX > player.GetPlayerX() + SPELL_RADIUS) targetX = player.GetPlayerX() + SPELL_RADIUS;
-        if (targetY < player.GetPlayerY() - SPELL_RADIUS) targetY = player.GetPlayerY() - SPELL_RADIUS;
-        if (targetY > player.GetPlayerY() + SPELL_RADIUS) targetY = player.GetPlayerY() + SPELL_RADIUS;
-
-        if (targetX < 0) targetX = 0;
-        if (targetX >= MAP_WIDTH) targetX = MAP_WIDTH - 1;
-        if (targetY < 0) targetY = 0;
-        if (targetY >= MAP_HEIGHT) targetY = MAP_HEIGHT - 1;
-
-        return true;
+        return moveSpellTarget(player, key);
     }
 
-    int newX = player.GetPlayerX();
-    int newY = player.GetPlayerY();
-
-    switch (key)
-    {
-    case 'z': case 'Z': newY--; break;
-    case 's': case 'S': newY++; break;
-    case 'q': case 'Q': newX--; break;
-    case 'd': case 'D': newX++; break;
-    default:
-        return false;
-    }
-
-    // Vérifier les limites et les murs
-    if (!isInsideMap(newX, newY))
-        return false;
-
-    if (level.Map[newY * MAP_WIDTH + newX] == 1)
-        return false;
-
-    // Vérifier si une case contient un ennemi
-    for (int i = 0; i < level.enemyCount; i++)
-    {
-        if (level.enemies[i].Life > 0 &&
-            level.enemies[i].x == newX &&
-            level.enemies[i].y == newY)
-        {
-            playerAttack(player, level, i);
-            player.SetMana(player.GetMana() + 5);
-            return true;
-        }
-    }
-
-    // Déplacement normal
-    player.SetPlayerX(newX);
-    player.SetPlayerY(newY);
-
-    // Regeneration de 5 mana après un déplacement valide
-    player.SetMana(player.GetMana() + 5);
-
-    return true;
+    return movePlayer(player, level, key);
 }
 
 // =========================

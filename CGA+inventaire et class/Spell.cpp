@@ -21,10 +21,6 @@ int targetY = 0;
 
 void displaySpellTargeting(Level& level, Player& player)
 {
-    // La carte commence à la ligne 2 de l'écran
-    const int MAP_START_ROW = 2;
-
-    // La zone d'effet doit être centrée sur le heros
     int minX = player.GetPlayerX() - SPELL_RADIUS;
     int maxX = player.GetPlayerX() + SPELL_RADIUS;
     int minY = player.GetPlayerY() - SPELL_RADIUS;
@@ -34,50 +30,14 @@ void displaySpellTargeting(Level& level, Player& player)
     {
         for (int x = minX; x <= maxX; x++)
         {
-            // Vérifier les limites de la carte
-            if (!isInsideMap(x, y))
-                continue;
-
-            // Ne pas afficher la zone sur les murs
-            if (level.Map[y * MAP_WIDTH + x] == 1)
-                continue;
-
-            // Ne pas afficher la zone sur la sortie
-            if (x == level.sortie.x &&
-                y == level.sortie.y)
-                continue;
-
-            // Préserver l'affichage des ennemis
-            bool enemyFound = false;
-
-            for (int i = 0; i < level.enemyCount; i++)
+            if (canDisplaySpellZone(level, player, x, y))
             {
-                if (x == level.enemies[i].x &&
-                    y == level.enemies[i].y)
-                {
-                    enemyFound = true;
-                    break;
-                }
+                displaySpellZone(x, y);
             }
-
-            if (enemyFound)
-                continue;
-
-            // Préserver l'affichage du héros
-            if (x == player.GetPlayerX() && y == player.GetPlayerY())
-                continue;
-
-            // Afficher la zone du sort
-            attron(COLOR_PAIR(5));
-            mvaddch(y + MAP_START_ROW, x * 2 + 2, '*');
-            attroff(COLOR_PAIR(5));
         }
     }
 
-    // Afficher le curseur de ciblage
-    attron(COLOR_PAIR(2));
-    mvaddch(targetY + MAP_START_ROW, targetX * 2 + 2, '+');
-    attroff(COLOR_PAIR(2));
+    displaySpellCursor();
 
     refresh();
 }

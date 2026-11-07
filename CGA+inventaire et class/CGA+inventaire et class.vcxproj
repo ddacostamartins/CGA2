@@ -134,6 +134,9 @@
     <ClCompile Include="ChoixClasse.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FonctionJeu.cpp" />
+    <ClCompile Include="FonctionMap.cpp" />
+    <ClCompile Include="FonctionMouvement.cpp" />
+    <ClCompile Include="FonctionSpell.cpp" />
     <ClCompile Include="Jeu.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Mage.cpp" />
@@ -150,6 +153,9 @@
     <ClInclude Include="ChoixClasse.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FonctionJeu.h" />
+    <ClInclude Include="FonctionMap.h" />
+    <ClInclude Include="FonctionMouvement.h" />
+    <ClInclude Include="FonctionSpell.h" />
     <ClInclude Include="Jeu.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Mage.h" />
