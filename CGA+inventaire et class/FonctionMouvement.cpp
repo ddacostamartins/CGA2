@@ -2,6 +2,7 @@
 #include "Spell.h"
 #include "Map.h"
 #include <curses.h>
+#include "Attack.h"
 
 bool handleEscape()
 {

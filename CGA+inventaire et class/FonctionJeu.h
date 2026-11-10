@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "ChoixClasse.h"
+#include "Player.h"
 
 void initialiserJeu();
 bool initialiserNiveau(int currentLevel, Level& level, Player& player);

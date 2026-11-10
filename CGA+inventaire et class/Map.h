@@ -12,3 +12,5 @@
 
 bool isInsideMap(int x, int y);
 void displayMap(Player& player, Level& level, int currentLevel);
+void statsdiplay(Player& player);
+void legendedisplay();

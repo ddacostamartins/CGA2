@@ -1,10 +1,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "FonctionMap.h"
-
-#include <curses.h>
-
-
+#include "curses.h"
 
 // =========================
 // VERIFICATION DES LIMITES
@@ -53,7 +50,8 @@ void displayMap(Player& player, Level& level, int currentLevel)
     // =========================
     // STATISTIQUES DU PERSONNAGE
     // =========================
-
+void statsdiplay(Player& player)
+{
     int infoX = MAP_WIDTH * 2 + 7;
     int infoY = 2;
 
@@ -79,11 +77,13 @@ void displayMap(Player& player, Level& level, int currentLevel)
     mvprintw(infoY + 7, infoX, "Mana : %d",
         player.GetMana());
     attroff(COLOR_PAIR(5));
+}
 
     // =========================
     // LEGENDE
     // =========================
-
+void legendedisplay()
+{
     int legendY = MAP_HEIGHT + 4;
 
     attron(COLOR_PAIR(3));

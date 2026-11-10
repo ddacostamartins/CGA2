@@ -1,36 +1,32 @@
 #pragma once
 
-#include <string>
+#include "Entity.h"
 #include "Armor.h"
 #include "Weapon.h"
 
-class Player
+class Player : public Entity
 {
-private:
-    std::string Playername = "Default name";
-
 protected:
 
-    int Life;
     int Damage;
     int Armor;
     int Mana;
-    int MaxLife;
     int Maxmana;
-    int PlayerX;
-    int PlayerY;
 
     Weapon weapon;
     Armors armor;
 
 public:
 
+    Player(int life, int damage, int armorValue,
+        int mana, int positionX = 0, int positionY = 0,
+        int maxLife = 20, int maxmana = 100);
+
     virtual const char* GetClassName() const = 0;
 
-    Player(int life, int damage, int armorValue, int mana, int positionX = 0, int positionY = 0, int maxLife = 20, int maxmana = 100);
+    virtual ~Player() = default;
 
-    int GetLife() const;
-    void SetLife(int value);
+    virtual void Displaystat() const = 0;
 
     int GetDamage() const;
     void SetDamage(int value);
@@ -43,12 +39,6 @@ public:
 
     void TakeDamage(int value);
     void Healing(int value);
-
-    void SetName(const std::string& value);
-    std::string GetName() const;
-
-    virtual ~Player() = default;
-    virtual void Displaystat() const = 0;
 
     int GetMana() const;
     void SetMana(int value);

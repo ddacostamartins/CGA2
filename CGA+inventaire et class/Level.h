@@ -13,15 +13,6 @@ public:
     int y = 0;
 };
 
-class Enemy {
-public:
-    std::string nom = "Ennemi";
-    int Life = 2;
-    int damage = 1;
-    int x = 0;
-    int y = 0;
-};
-
 class Level{
 public:
     int Map[MAP_WIDTH * MAP_HEIGHT]{};

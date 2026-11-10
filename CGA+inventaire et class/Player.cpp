@@ -1,28 +1,17 @@
 #include "Player.h"
 #include "Map.h"
+#include "Attack.h"
 
-#include <algorithm>
-#include <string>
+Player::Player(int life, int damage, int armorValue,
+    int mana, int playerX, int playerY,
+    int maxLife, int maxmana)
 
-Player::Player(int life, int damage, int armorValue, int mana, int playerX, int playerY, int maxLife, int maxmana)
-    : Life(life),
+    : Entity("Default name", life, maxLife, playerX, playerY),
     Damage(damage),
     Armor(armorValue),
     Mana(mana),
-    PlayerX(playerX),
-    PlayerY(playerY),
-    MaxLife(maxLife),
     Maxmana(maxmana)
 {
-    if (MaxLife < 0)
-        MaxLife = 0;
-
-    if (Life < 0)
-        Life = 0;
-
-    if (Life > MaxLife)
-        Life = MaxLife;
-
     if (Damage < 0)
         Damage = 0;
 
@@ -37,22 +26,6 @@ Player::Player(int life, int damage, int armorValue, int mana, int playerX, int 
 
     if (Mana > Maxmana)
         Mana = Maxmana;
-}
-
-int Player::GetLife() const
-{
-    return Life;
-}
-
-void Player::SetLife(int value)
-{
-    if (value < 0)
-        value = 0;
-
-    if (value > MaxLife)
-        value = MaxLife;
-
-    Life = value;
 }
 
 int Player::GetDamage() const
@@ -104,7 +77,7 @@ void Player::TakeDamage(int value)
     if (attack < 0)
         attack = 0;
 
-    SetLife(Life - attack);
+    SetLife(GetLife() - attack);
 }
 
 void Player::Healing(int value)
@@ -114,17 +87,7 @@ void Player::Healing(int value)
     if (heal < 0)
         heal = 0;
 
-    SetLife(Life + heal);
-}
-
-void Player::SetName(const std::string& value)
-{
-    Playername = value;
-}
-
-std::string Player::GetName() const
-{
-    return Playername;
+    SetLife(GetLife() + heal);
 }
 
 int Player::GetMana() const
@@ -145,7 +108,7 @@ void Player::SetMana(int value)
 
 int Player::GetPlayerX() const
 {
-    return PlayerX;
+    return GetPositionX();
 }
 
 void Player::SetPlayerX(int value)
@@ -156,12 +119,12 @@ void Player::SetPlayerX(int value)
     if (value >= MAP_WIDTH)
         value = MAP_WIDTH - 1;
 
-    PlayerX = value;
+    SetPositionX(value);
 }
 
 int Player::GetPlayerY() const
 {
-    return PlayerY;
+    return GetPositionY();
 }
 
 void Player::SetPlayerY(int value)
@@ -172,5 +135,5 @@ void Player::SetPlayerY(int value)
     if (value >= MAP_HEIGHT)
         value = MAP_HEIGHT - 1;
 
-    PlayerY = value;
+    SetPositionY(value);
 }

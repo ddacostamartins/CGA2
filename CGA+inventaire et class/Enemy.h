@@ -1,14 +1,30 @@
 #pragma once
+#include "Entity.h"
 
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
-#include <cstdlib>
-#include <ctime>
-#include <curses.h>
+class Enemy : public Entity
+{
+protected :
 
-#include "Level.h"
-#include "Player.h"
 
-void enemyattack(Player& player, const Level& level);
-void playerAttack(Player& player, Level& level, int enemyIndex);
+public :
+
+    Enemy(int life, int damage, int positionX = 0, int positionY = 0,
+        int maxLife = 20);
+
+    virtual const char* GetClassName() const = 0;
+
+    virtual ~Enemy() = default;
+
+    virtual void Displaystat() const = 0;
+
+    int GetDamage() const;
+    void SetDamage(int value);
+
+    void TakeDamage(int value);
+
+    int GetPlayerX() const;
+    int GetPlayerY() const;
+
+    void SetPlayerX(int value);
+    void SetPlayerY(int value);
+}

@@ -7,6 +7,7 @@
 #include "Spell.h"
 #include "Map.h"
 #include "player.h"
+#include "FonctionSpell.h"
 
 bool spellConfirmed = false;
 bool spellCancelled = false;

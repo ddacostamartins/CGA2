@@ -102,13 +102,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\PDcurses\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\PDcurses\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -119,12 +119,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ddacostamartins\Documents\GitHub\CGA2\lib\PDCurses\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\ddacostamartins\Documents\GitHub\CGA2\lib\PDCurses\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -133,6 +133,8 @@
     <ClCompile Include="CGA+inventaire et class.cpp" />
     <ClCompile Include="ChoixClasse.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FonctionJeu.cpp" />
     <ClCompile Include="FonctionMap.cpp" />
     <ClCompile Include="FonctionMouvement.cpp" />
@@ -152,6 +154,8 @@
     <ClInclude Include="Armor.h" />
     <ClInclude Include="ChoixClasse.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Attack.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="FonctionJeu.h" />
     <ClInclude Include="FonctionMap.h" />
     <ClInclude Include="FonctionMouvement.h" />

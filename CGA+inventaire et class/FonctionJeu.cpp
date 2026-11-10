@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "Spell.h"
 #include "Level.h"
-#include "Enemy.h"
+#include "Attack.h"
 #include "Mouvement.h"
 #include "ChoixClasse.h"
 

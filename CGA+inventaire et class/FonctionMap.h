@@ -1,4 +1,6 @@
 #pragma once
+#include "Level.h"
+#include "player.h"
 
 void displayLevelTitle(int currentLevel);
 void getTerrainAppearance(int cell, char& symbole, int& color);
