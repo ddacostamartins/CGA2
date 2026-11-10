@@ -15,13 +15,13 @@ void enemyattack(Player& player, const Level& level)
 {
     for (int i = 0; i < level.enemyCount; i++) {
 
-        if (level.enemies[i].Life <= 0)
+        if (level.enemies[i].GetLife() <= 0)
             continue;
 
-        if (player.GetPlayerX() == level.enemies[i].x &&
-            player.GetPlayerY() == level.enemies[i].y)
+        if (player.GetPositionX() == level.enemies[i].GetPositionX() &&
+            player.GetPositionY() == level.enemies[i].GetPositionY())
         {
-            player.SetLife(player.GetLife() - level.enemies[i].damage);
+            player.SetLife(player.GetLife() - level.enemies[i].GetDamage());
 
             if (player.GetLife() <= 0) {
                 clear();
@@ -51,24 +51,24 @@ void playerAttack(Player& player, Level& level, int enemyIndex)
 
     Enemy& enemy = level.enemies[enemyIndex];
 
-    if (enemy.Life <= 0)
+    if (enemy.GetLife() <= 0)
         return;
 
     int damage = player.GetTotalDamage();
 
-    enemy.Life -= damage;
+    enemy.SetLife(enemy.GetLife() - damage);
 
     clear();
 
     attron(COLOR_PAIR(3));
     printw("===== ATTAQUE DU JOUEUR =====\n");
-    printw("Tu attaques %s !\n", enemy.nom.c_str());
+    printw("Tu attaques %s !\n", enemy.GetName().c_str());
     printw("Tu infliges %d degats !\n", damage);
     attroff(COLOR_PAIR(3));
 
-    if (enemy.Life <= 0)
+    if (enemy.GetLife() <= 0)
     {
-        enemy.Life = 0;
+        enemy.SetLife(0);
 
         attron(COLOR_PAIR(4));
         printw("L'ennemi est mort !\n");

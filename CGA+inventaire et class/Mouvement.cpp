@@ -35,8 +35,8 @@ bool canMoveTo(const Level& level, int x, int y,
         if (i == ignoredEnemy)
             continue;
 
-        if (level.enemies[i].x == x &&
-            level.enemies[i].y == y)
+        if (level.enemies[i].GetPositionX() == x &&
+            level.enemies[i].GetPositionY() == y)
             return false;
     }
 
@@ -83,11 +83,11 @@ void enemymovement(Level& level)
 {
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].Life <= 0)
+        if (level.enemies[i].GetLife() <= 0)
             continue;
 
-        int newX = level.enemies[i].x;
-        int newY = level.enemies[i].y;
+        int newX = level.enemies[i].GetPositionX();
+        int newY = level.enemies[i].GetPositionY();
 
         // Choisir une direction aleatoire
         switch (rand() % 4)
@@ -102,7 +102,7 @@ void enemymovement(Level& level)
         if (!canMoveTo(level, newX, newY, i))
             continue;
 
-        level.enemies[i].x = newX;
-        level.enemies[i].y = newY;
+        level.enemies[i].SetPositionX(newX);
+        level.enemies[i].SetPositionY(newY);
     }
 }

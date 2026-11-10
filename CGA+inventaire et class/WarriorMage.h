@@ -7,9 +7,9 @@ class WarriorMage : public Player
 public:
     WarriorMage();
 
-    void Displaystat() const override;
+   
 
-    const char* GetClassName() const override
+    const char* GetName()
     {
         return "Guerrier-Mage";
     }

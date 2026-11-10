@@ -36,8 +36,8 @@ bool startSpellTargeting(Player& player)
     }
 
     targetingSpell = true;
-    targetX = player.GetPlayerX();
-    targetY = player.GetPlayerY();
+    targetX = player.GetPositionX();
+    targetY = player.GetPositionY();
 
     return true;
 }
@@ -54,11 +54,11 @@ bool moveSpellTarget(Player& player, int key)
         return false;
     }
 
-    targetX = max(player.GetPlayerX() - SPELL_RADIUS,
-        min(targetX, player.GetPlayerX() + SPELL_RADIUS));
+    targetX = max(player.GetPositionX() - SPELL_RADIUS,
+        min(targetX, player.GetPositionX() + SPELL_RADIUS));
 
-    targetY = max(player.GetPlayerY() - SPELL_RADIUS,
-        min(targetY, player.GetPlayerY() + SPELL_RADIUS));
+    targetY = max(player.GetPositionY() - SPELL_RADIUS,
+        min(targetY, player.GetPositionY() + SPELL_RADIUS));
 
     targetX = max(0, min(targetX, MAP_WIDTH - 1));
     targetY = max(0, min(targetY, MAP_HEIGHT - 1));
@@ -68,8 +68,8 @@ bool moveSpellTarget(Player& player, int key)
 
 bool movePlayer(Player& player, Level& level, int key)
 {
-    int newX = player.GetPlayerX();
-    int newY = player.GetPlayerY();
+    int newX = player.GetPositionX();
+    int newY = player.GetPositionY();
 
     switch (key)
     {
@@ -89,9 +89,9 @@ bool movePlayer(Player& player, Level& level, int key)
 
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].Life > 0 &&
-            level.enemies[i].x == newX &&
-            level.enemies[i].y == newY)
+        if (level.enemies[i].GetLife() > 0 &&
+            level.enemies[i].GetPositionX() == newX &&
+            level.enemies[i].GetPositionY() == newY)
         {
             playerAttack(player, level, i);
             player.SetMana(player.GetMana() + 5);
@@ -99,8 +99,8 @@ bool movePlayer(Player& player, Level& level, int key)
         }
     }
 
-    player.SetPlayerX(newX);
-    player.SetPlayerY(newY);
+    player.SetPositionX(newX);
+    player.SetPositionY(newY);
     player.SetMana(player.GetMana() + 5);
 
     return true;

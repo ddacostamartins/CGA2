@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Enemy.h"
+
 const int MAP_WIDTH = 20;
 const int MAP_HEIGHT = 10;
 const int MAX_ENEMIES = 5;

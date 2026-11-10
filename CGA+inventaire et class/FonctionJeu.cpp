@@ -44,8 +44,8 @@ bool initialiserNiveau(int currentLevel, Level& level, Player& player)
         return false;
     }
 
-    player.SetPlayerX(level.startX);
-    player.SetPlayerY(level.startY);
+    player.SetPositionX(level.startX);
+    player.SetPositionY(level.startY);
 
     return true;
 }
@@ -140,8 +140,8 @@ bool gererDeplacement(Player& player, Level& level, int& currentLevel)
     }
 
     // Vérification de la sortie
-    if (player.GetPlayerX() == level.sortie.x &&
-        player.GetPlayerY() == level.sortie.y)
+    if (player.GetPositionX() == level.sortie.x &&
+        player.GetPositionY() == level.sortie.y)
     {
         return changerNiveau(currentLevel, level, player);
     }

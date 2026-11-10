@@ -53,8 +53,8 @@ void displayTerrain(int x, int y, Level& level)
 
 void displayHero(Player& player, int x, int y)
 {
-    if (x == player.GetPlayerX() &&
-        y == player.GetPlayerY())
+    if (x == player.GetPositionX() &&
+        y == player.GetPositionY())
     {
         attron(COLOR_PAIR(3));
         mvaddch(y + 2, x * 2 + 2, 'H');
@@ -77,9 +77,9 @@ void displayEnemies(Level& level, int x, int y)
 {
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].Life > 0 &&
-            x == level.enemies[i].x &&
-            y == level.enemies[i].y)
+        if (level.enemies[i].GetLife() > 0 &&
+            x == level.enemies[i].GetPositionX() &&
+            y == level.enemies[i].GetPositionY())
         {
             attron(COLOR_PAIR(2));
             mvaddch(y + 2, x * 2 + 2, 'X');

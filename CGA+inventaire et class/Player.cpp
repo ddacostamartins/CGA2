@@ -90,35 +90,3 @@ void Player::SetMana(int value)
 
     Mana = value;
 }
-
-int Player::GetPlayerX() const
-{
-    return GetPositionX();
-}
-
-void Player::SetPlayerX(int value)
-{
-    if (value < 0)
-        value = 0;
-
-    if (value >= MAP_WIDTH)
-        value = MAP_WIDTH - 1;
-
-    SetPositionX(value);
-}
-
-int Player::GetPlayerY() const
-{
-    return GetPositionY();
-}
-
-void Player::SetPlayerY(int value)
-{
-    if (value < 0)
-        value = 0;
-
-    if (value >= MAP_HEIGHT)
-        value = MAP_HEIGHT - 1;
-
-    SetPositionY(value);
-}

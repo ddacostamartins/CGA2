@@ -27,8 +27,8 @@ void displayMap(Player& player, Level& level, int currentLevel)
         {
             displayTerrain(x, y, level);
 
-            if (x == player.GetPlayerX() &&
-                y == player.GetPlayerY())
+            if (x == player.GetPositionX() &&
+                y == player.GetPositionY())
             {
                 displayHero(player, x, y);
             }
@@ -60,7 +60,7 @@ void statsdiplay(Player& player)
     attroff(COLOR_PAIR(6));
 
     mvprintw(infoY + 2, infoX, "Classe : %s",
-        player.GetClassName());
+        player.GetName());
 
     attron(COLOR_PAIR(3));
     mvprintw(infoY + 4, infoX, "Vie : %d",

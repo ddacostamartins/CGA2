@@ -10,8 +10,8 @@ bool isEnemyAt(Level& level, int x, int y)
 {
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].x == x &&
-            level.enemies[i].y == y)
+        if (level.enemies[i].GetPositionX() == x &&
+            level.enemies[i].GetPositionY() == y)
             return true;
     }
 
@@ -32,8 +32,8 @@ bool canDisplaySpellZone(Level& level, Player& player, int x, int y)
     if (isEnemyAt(level, x, y))
         return false;
 
-    if (x == player.GetPlayerX() &&
-        y == player.GetPlayerY())
+    if (x == player.GetPositionX() &&
+        y == player.GetPositionY())
         return false;
 
     return true;

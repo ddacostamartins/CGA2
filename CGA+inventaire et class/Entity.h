@@ -16,6 +16,7 @@ public:
     Entity(std::string name, int life,int damage ,int maxLife, int positionX, int positionY);
 
     virtual ~Entity() = default;
+    
 
     int GetLife() const;
     void SetLife(int value);

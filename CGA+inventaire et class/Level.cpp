@@ -229,13 +229,13 @@ bool loadLevel(int numero, Level& level) {
                 return false;
             }
 
-            Enemy enemy;
+            Enemy enemy{0,0,0,0,20};
 
-            enemy.nom = "Ennemi";
-            enemy.Life = life;
-            enemy.damage = damage;
-            enemy.x = x;
-            enemy.y = y;
+            enemy.SetName("Ennemi");
+            enemy.SetLife(life);
+            enemy.SetDamage(damage);
+            enemy.SetPositionX(x);
+            enemy.SetPositionY(y);
 
             level.enemies[level.enemyCount] = enemy;
             level.enemyCount++;
@@ -286,8 +286,8 @@ bool loadLevel(int numero, Level& level) {
     // Aucun ennemi ne doit commencer dans un mur
     for (int i = 0; i < level.enemyCount; i++) {
 
-        int x = level.enemies[i].x;
-        int y = level.enemies[i].y;
+        int x = level.enemies[i].GetPositionX();
+        int y = level.enemies[i].GetPositionY();
 
         if (level.Map[y * MAP_WIDTH + x] == 1) {
             std::cout << "ERREUR : l'ennemi " << i + 1

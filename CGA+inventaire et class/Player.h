@@ -21,11 +21,11 @@ public:
         int mana, int positionX = 0, int positionY = 0,
         int maxLife = 20, int maxmana = 100);
 
-    virtual const char* GetClassName() const = 0;
+    
 
-    virtual ~Player() = default;
+    
 
-    virtual void Displaystat() const = 0;
+    
 
 
     int GetArmor() const;
@@ -40,11 +40,6 @@ public:
     int GetMana() const;
     void SetMana(int value);
 
-    int GetPlayerX() const;
-    int GetPlayerY() const;
-
-    void SetPlayerX(int value);
-    void SetPlayerY(int value);
 
     virtual bool CanCastSpell() const
     {

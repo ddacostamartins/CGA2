@@ -7,9 +7,9 @@ class Mage : public Player
 public:
     Mage();
 
-    void Displaystat() const override;
+   
 
-    const char* GetClassName() const override
+    const char* GetName() 
     {
         return "Mage";
     }
