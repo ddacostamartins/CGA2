@@ -6,14 +6,12 @@ Player::Player(int life, int damage, int armorValue,
     int mana, int playerX, int playerY,
     int maxLife, int maxmana)
 
-    : Entity("Default name", life, maxLife, playerX, playerY),
-    Damage(damage),
+    : Entity("Default name", life,damage, maxLife, playerX, playerY),
     Armor(armorValue),
     Mana(mana),
     Maxmana(maxmana)
 {
-    if (Damage < 0)
-        Damage = 0;
+    
 
     if (Armor < 0)
         Armor = 0;
@@ -26,19 +24,6 @@ Player::Player(int life, int damage, int armorValue,
 
     if (Mana > Maxmana)
         Mana = Maxmana;
-}
-
-int Player::GetDamage() const
-{
-    return Damage;
-}
-
-void Player::SetDamage(int value)
-{
-    if (value < 0)
-        value = 0;
-
-    Damage = value;
 }
 
 int Player::GetArmor() const

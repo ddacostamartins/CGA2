@@ -1,9 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(std::string name, int life, int maxLife,
+Entity::Entity(std::string name, int life,int damage ,int maxLife,
     int positionX, int positionY)
     : Name(name),
     Life(life),
+    Damage(damage),
     MaxLife(maxLife),
     PositionX(positionX),
     PositionY(positionY)
@@ -40,6 +41,18 @@ void Entity::SetLife(int value)
     Life = value;
 }
 
+int Entity::GetDamage() const
+{
+    return Damage;
+}
+
+void Entity::SetDamage(int value)
+{
+    if (value < 0)
+        value = 0;
+
+    Damage = value;
+}
 std::string Entity::GetName() const
 {
     return Name;

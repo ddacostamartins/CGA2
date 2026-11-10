@@ -3,10 +3,10 @@
 
 class Enemy : public Entity
 {
-protected :
+protected:
+    
 
-
-public :
+public:
 
     Enemy(int life, int damage, int positionX = 0, int positionY = 0,
         int maxLife = 20);
@@ -17,8 +17,6 @@ public :
 
     virtual void Displaystat() const = 0;
 
-    int GetDamage() const;
-    void SetDamage(int value);
 
     void TakeDamage(int value);
 
@@ -27,4 +25,4 @@ public :
 
     void SetPlayerX(int value);
     void SetPlayerY(int value);
-}
+};

@@ -7,17 +7,21 @@ class Entity
 protected:
     std::string Name;
     int Life;
+    int Damage;
     int MaxLife;
     int PositionX;
     int PositionY;
 
 public:
-    Entity(std::string name, int life, int maxLife, int positionX, int positionY);
+    Entity(std::string name, int life,int damage ,int maxLife, int positionX, int positionY);
 
     virtual ~Entity() = default;
 
     int GetLife() const;
     void SetLife(int value);
+
+    int GetDamage() const;
+    void SetDamage(int value);
 
     std::string GetName() const;
     void SetName(const std::string& value);

@@ -8,7 +8,6 @@ class Player : public Entity
 {
 protected:
 
-    int Damage;
     int Armor;
     int Mana;
     int Maxmana;
@@ -28,8 +27,6 @@ public:
 
     virtual void Displaystat() const = 0;
 
-    int GetDamage() const;
-    void SetDamage(int value);
 
     int GetArmor() const;
     void SetArmor(int value);
