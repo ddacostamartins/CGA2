@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "FonctionMap.h"
 #include "curses.h"
+#include "Level.h"
 
 // =========================
 // VERIFICATION DES LIMITES

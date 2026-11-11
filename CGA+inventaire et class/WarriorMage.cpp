@@ -1,7 +1,7 @@
 #include <iostream>
 #include "WarriorMage.h"
 
-WarriorMage::WarriorMage() : Player(7, 6, 3, 5)
+WarriorMage::WarriorMage() : Warrior::Warrior(), Mage::Mage()
 {
+    
 }
-

@@ -6,11 +6,15 @@
 #include <memory>
 
 #include "Map.h"
-#include "Spell.h"
+#include "Mage.h"
 #include "Level.h"
 #include "Attack.h"
 #include "Mouvement.h"
 #include "ChoixClasse.h"
+#include "Enemy.h"
+
+Mage mage;
+Enemy enemy;
 
 void initialiserJeu()
 {
@@ -52,23 +56,23 @@ bool initialiserNiveau(int currentLevel, Level& level, Player& player)
 
 void tourEnnemis(Player& player, Level& level)
 {
-    enemymovement(level);
+    enemy.enemymovement(level);
     enemyattack(player, level);
 }
 
 void gererCiblageSort(Player& player, Level& level, int currentLevel)
 {
-    movementhero(player, level);
+    player.movementhero(player, level);
     displayMap(player, level, currentLevel);
 
-    if (targetingSpell)
+    if (mage.targetingSpell)
     {
-        displaySpellTargeting(level, player);
+        mage.displaySpellTargeting(level, player);
     }
-    else if (spellConfirmed)
+    else if (mage.spellConfirmed)
     {
-        bool spellSuccess = castSpell(level, player);
-        spellConfirmed = false;
+        bool spellSuccess = mage.castSpell(level, player);
+        mage.spellConfirmed = false;
 
         if (spellSuccess)
         {
@@ -77,9 +81,9 @@ void gererCiblageSort(Player& player, Level& level, int currentLevel)
 
         displayMap(player, level, currentLevel);
     }
-    else if (spellCancelled)
+    else if (mage.spellCancelled)
     {
-        spellCancelled = false;
+        mage.spellCancelled = false;
         displayMap(player, level, currentLevel);
     }
 }
@@ -120,21 +124,21 @@ bool changerNiveau(int& currentLevel, Level& level, Player& player)
 
 bool gererDeplacement(Player& player, Level& level, int& currentLevel)
 {
-    if (!movementhero(player, level))
+    if (!player.movementhero(player, level))
     {
         return true;
     }
 
-    if (targetingSpell)
+    if (mage.targetingSpell)
     {
         displayMap(player, level, currentLevel);
-        displaySpellTargeting(level, player);
+        mage.displaySpellTargeting(level, player);
         return true;
     }
 
-    if (spellCancelled)
+    if (mage.spellCancelled)
     {
-        spellCancelled = false;
+        mage.spellCancelled = false;
         displayMap(player, level, currentLevel);
         return true;
     }

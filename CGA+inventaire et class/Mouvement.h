@@ -10,8 +10,7 @@
 #include "Level.h"
 #include "Player.h"
 
-bool canMoveTo(const Level& level, int x, int y,
-    int ignoredEnemy = -1,
-    bool isHero = false);
-bool movementhero(Player& player, Level& level);
-void enemymovement(Level& level);
+bool movePlayer(Player& player, Level& level, int key);
+bool moveSpellTarget(Player& player, int key);
+bool startSpellTargeting(Player& player);
+bool handleEscape();

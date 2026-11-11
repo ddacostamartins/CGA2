@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Map.h"
 #include "Attack.h"
+#include "Mouvement.h"
+#include "Spell.h"
 
 Player::Player(int life, int damage, int armorValue,
     int mana, int playerX, int playerY,
@@ -24,6 +26,34 @@ Player::Player(int life, int damage, int armorValue,
 
     if (Mana > Maxmana)
         Mana = Maxmana;
+}
+
+bool Mage::movementhero(Player& player, Level& level)
+{
+    int key = getch();
+
+    if (key == ERR)
+        return false;
+
+    if (key == 27)
+        return handleEscape();
+
+    if (key == 'e' || key == 'E')
+        return startSpellTargeting(player);
+
+    if (targetingSpell)
+    {
+        if (key == '\n' || key == '\r' || key == KEY_ENTER)
+        {
+            spellConfirmed = true;
+            targetingSpell = false;
+            return true;
+        }
+
+        return moveSpellTarget(player, key);
+    }
+
+    return movePlayer(player, level, key);
 }
 
 int Player::GetArmor() const

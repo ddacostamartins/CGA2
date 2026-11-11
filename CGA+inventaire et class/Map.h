@@ -7,8 +7,8 @@
 #include <ctime>
 #include <curses.h>
 
-#include "Level.h"
 #include "Player.h"
+#include "Level.h"
 
 bool isInsideMap(int x, int y);
 void displayMap(Player& player, Level& level, int currentLevel);

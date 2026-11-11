@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Player.h"
+#include "Warrior.h"
+#include "Mage.h"
+#include "Spell.h"
 
-class WarriorMage : public Player
+class WarriorMage : public Warrior, public Mage
 {
 public:
     WarriorMage();
-
-   
-
+    
     const char* GetName()
     {
-        return "Guerrier-Mage";
+        return "Warrior-Mage";
     }
 
     bool CanCastSpell() const override

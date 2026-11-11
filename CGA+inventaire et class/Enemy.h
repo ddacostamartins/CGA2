@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+#include "Level.h"
+#include "Map.h"
 
 class Enemy : public Entity
 {
@@ -16,4 +18,10 @@ public:
         int maxLife = 20);
 
     void TakeDamage(int value);
+
+    bool canMoveTo(const Level& level, int x, int y,
+        int ignoredEnemy = -1,
+        bool isHero = false);
+    bool movementhero(Player& player, Level& level);
+    void enemymovement(Level& level);
 };

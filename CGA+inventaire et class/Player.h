@@ -21,13 +21,6 @@ public:
         int mana, int positionX = 0, int positionY = 0,
         int maxLife = 20, int maxmana = 100);
 
-    
-
-    
-
-    
-
-
     int GetArmor() const;
     void SetArmor(int value);
 
@@ -40,6 +33,7 @@ public:
     int GetMana() const;
     void SetMana(int value);
 
+    bool movementhero(Player& player, Level& level);
 
     virtual bool CanCastSpell() const
     {

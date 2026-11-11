@@ -1,86 +1,59 @@
-#include <iostream>
-#include <conio.h>
-#include <cstdlib>
-#include <ctime>
+#include "Spell.h"
+#include "Level.h"
+#include "Player.h"
+#include "Map.h"
+
 #include <curses.h>
 
-#include "Spell.h"
-#include "Map.h"
-#include "player.h"
-#include "FonctionSpell.h"
+Mage& mage;
 
-bool spellConfirmed = false;
-bool spellCancelled = false;
-bool targetingSpell = false;
-
-int targetX = 0;
-int targetY = 0;
-
-// =========================
-// AFFICHAGE TARGETING ZONE
-// =========================
-
-void displaySpellTargeting(Level& level, Player& player)
+bool isEnemyAt(Level& level, int x, int y)
 {
-    int minX = player.GetPositionX() - SPELL_RADIUS;
-    int maxX = player.GetPositionX() + SPELL_RADIUS;
-    int minY = player.GetPositionY() - SPELL_RADIUS;
-    int maxY = player.GetPositionY() + SPELL_RADIUS;
-
-    for (int y = minY; y <= maxY; y++)
-    {
-        for (int x = minX; x <= maxX; x++)
-        {
-            if (canDisplaySpellZone(level, player, x, y))
-            {
-                displaySpellZone(x, y);
-            }
-        }
-    }
-
-    displaySpellCursor();
-
-    refresh();
-}
-
-// ==============
-// SPELL CASTING
-// ==============
-
-bool castSpell(Level& level, Player& player)
-{
-    // Vérifier le mana
-    if (!player.CanCastSpell() || player.GetMana() < SPELL_COST)
-        return false;
-
-    // Vérifier qu'un ennemi se trouve sur la case ciblée
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].GetPositionX() == targetX &&
-            level.enemies[i].GetPositionY() == targetY)
-        {
-            // Retirer le mana
-            player.SetMana(player.GetMana() - SPELL_COST);
-
-            // Les dégâts du sort correspondent aux dégâts du héros
-            int spellDamage = player.GetDamage();
-
-            level.enemies[i].SetLife(level.enemies[i].GetLife()-spellDamage);
-
-            // Supprimer l'ennemi s'il est mort
-            if (level.enemies[i].GetLife() <= 0)
-            {
-                for (int j = i; j < level.enemyCount - 1; j++)
-                {
-                    level.enemies[j] = level.enemies[j + 1];
-                }
-
-                level.enemyCount--;
-            }
-
+        if (level.enemies[i].GetPositionX() == x &&
+            level.enemies[i].GetPositionY() == y)
             return true;
-        }
     }
 
     return false;
+}
+
+bool canDisplaySpellZone(Level& level, Player& player, int x, int y)
+{
+    if (!isInsideMap(x, y))
+        return false;
+
+    if (level.Map[y * MAP_WIDTH + x] == 1)
+        return false;
+
+    if (x == level.sortie.x && y == level.sortie.y)
+        return false;
+
+    if (isEnemyAt(level, x, y))
+        return false;
+
+    if (x == player.GetPositionX() &&
+        y == player.GetPositionY())
+        return false;
+
+    return true;
+}
+
+void displaySpellZone(int x, int y)
+{
+    const int MAP_START_ROW = 2;
+
+    attron(COLOR_PAIR(5));
+    mvaddch(y + MAP_START_ROW, x * 2 + 2, '*');
+    attroff(COLOR_PAIR(5));
+}
+
+void displaySpellCursor()
+{
+    const int MAP_START_ROW = 2;
+
+    attron(COLOR_PAIR(2));
+    mvaddch(mage.GetTargetY() + MAP_START_ROW, mage.GetTargetX() * 2 + 2, '+');
+    attroff(COLOR_PAIR(2));
 }

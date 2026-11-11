@@ -1,108 +1,107 @@
-#include <iostream>
-#include <conio.h>
-#include <cstdlib>
-#include <ctime>
-#include <curses.h>
-
-#include "Mouvement.h"
-#include "Map.h"
-#include "Spell.h"
-#include "Enemy.h"
 #include "FonctionMouvement.h"
+#include "Spell.h"
+#include "Map.h"
+#include <curses.h>
+#include "Attack.h"
 
-// ====================================
-// VERIFICATION DES MOUVEMENT POSSIBLE
-// ====================================
-
-bool canMoveTo(const Level& level, int x, int y,
-    int ignoredEnemy,
-    bool isHero)
+bool handleEscape()
 {
-    if (!isInsideMap(x, y))
-        return false;
-
-    if (level.Map[y * MAP_WIDTH + x] == 1)
-        return false;
-
-    // Seuls les ennemis ne peuvent pas entrer dans la sortie
-    if (!isHero &&
-        x == level.sortie.x &&
-        y == level.sortie.y)
-        return false;
-
-    for (int i = 0; i < level.enemyCount; i++)
+    if (targetingSpell)
     {
-        if (i == ignoredEnemy)
-            continue;
-
-        if (level.enemies[i].GetPositionX() == x &&
-            level.enemies[i].GetPositionY() == y)
-            return false;
+        targetingSpell = false;
+        spellCancelled = true;
+        return true;
     }
+
+    endwin();
+    exit(0);
+}
+
+bool startSpellTargeting(Player& player)
+{
+    if (!player.CanCastSpell())
+    {
+        mvprintw(MAP_HEIGHT + 8, 2,
+            "Cette classe ne peut pas utiliser de sort !");
+        refresh();
+        return false;
+    }
+
+    if (player.GetMana() < SPELL_COST)
+    {
+        mvprintw(MAP_HEIGHT + 8, 2,
+            "Mana insuffisant ! Il faut 20 mana.");
+        refresh();
+        return false;
+    }
+
+    targetingSpell = true;
+    targetX = player.GetPositionX();
+    targetY = player.GetPositionY();
 
     return true;
 }
 
-// =========================
-// DEPLACEMENT DU HEROS
-// =========================
-
-bool movementhero(Player& player, Level& level)
+bool moveSpellTarget(Player& player, int key)
 {
-    int key = getch();
-
-    if (key == ERR)
-        return false;
-
-    if (key == 27)
-        return handleEscape();
-
-    if (key == 'e' || key == 'E')
-        return startSpellTargeting(player);
-
-    if (targetingSpell)
+    switch (key)
     {
-        if (key == '\n' || key == '\r' || key == KEY_ENTER)
-        {
-            spellConfirmed = true;
-            targetingSpell = false;
-            return true;
-        }
-
-        return moveSpellTarget(player, key);
+    case 'z': case 'Z': targetY--; break;
+    case 's': case 'S': targetY++; break;
+    case 'q': case 'Q': targetX--; break;
+    case 'd': case 'D': targetX++; break;
+    default:
+        return false;
     }
 
-    return movePlayer(player, level, key);
+    targetX = max(player.GetPositionX() - SPELL_RADIUS,
+        min(targetX, player.GetPositionX() + SPELL_RADIUS));
+
+    targetY = max(player.GetPositionY() - SPELL_RADIUS,
+        min(targetY, player.GetPositionY() + SPELL_RADIUS));
+
+    targetX = max(0, min(targetX, MAP_WIDTH - 1));
+    targetY = max(0, min(targetY, MAP_HEIGHT - 1));
+
+    return true;
 }
 
-// =========================
-// DEPLACEMENT DES ENNEMIS
-// =========================
-
-void enemymovement(Level& level)
+bool movePlayer(Player& player, Level& level, int key)
 {
+    int newX = player.GetPositionX();
+    int newY = player.GetPositionY();
+
+    switch (key)
+    {
+    case 'z': case 'Z': newY--; break;
+    case 's': case 'S': newY++; break;
+    case 'q': case 'Q': newX--; break;
+    case 'd': case 'D': newX++; break;
+    default:
+        return false;
+    }
+
+    if (!isInsideMap(newX, newY))
+        return false;
+
+    if (level.Map[newY * MAP_WIDTH + newX] == 1)
+        return false;
+
     for (int i = 0; i < level.enemyCount; i++)
     {
-        if (level.enemies[i].GetLife() <= 0)
-            continue;
-
-        int newX = level.enemies[i].GetPositionX();
-        int newY = level.enemies[i].GetPositionY();
-
-        // Choisir une direction aleatoire
-        switch (rand() % 4)
+        if (level.enemies[i].GetLife() > 0 &&
+            level.enemies[i].GetPositionX() == newX &&
+            level.enemies[i].GetPositionY() == newY)
         {
-        case 0: newY--; break;
-        case 1: newY++; break;
-        case 2: newX--; break;
-        case 3: newX++; break;
+            playerAttack(player, level, i);
+            player.SetMana(player.GetMana() + 5);
+            return true;
         }
-
-        // Verifier si le deplacement est autorise
-        if (!canMoveTo(level, newX, newY, i))
-            continue;
-
-        level.enemies[i].SetPositionX(newX);
-        level.enemies[i].SetPositionY(newY);
     }
+
+    player.SetPositionX(newX);
+    player.SetPositionY(newY);
+    player.SetMana(player.GetMana() + 5);
+
+    return true;
 }

@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "ChoixClasse.h"
 #include "Player.h"
+#include "Mage.h"
 
 void initialiserJeu();
 bool initialiserNiveau(int currentLevel, Level& level, Player& player);
