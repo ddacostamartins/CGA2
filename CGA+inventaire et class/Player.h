@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "Armor.h"
 #include "Weapon.h"
+#include "Level.h"
+
 
 class Player : public Entity
 {

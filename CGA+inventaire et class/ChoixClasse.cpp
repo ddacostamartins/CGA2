@@ -4,7 +4,7 @@
 #include <curses.h>
 #include "Mage.h"
 #include "Warrior.h"
-#include "WarriorMage.h"
+
 
 std::unique_ptr<Player> choisirClasse()
 {
@@ -13,8 +13,7 @@ std::unique_ptr<Player> choisirClasse()
     clear();
     printw("===== CHOISIS TA CLASSE =====\n\n");
     printw("1 - Mage\n");
-    printw("2 - Guerrier\n");
-    printw("3 - Guerrier-Mage\n\n");
+    printw("2 - Warrior\n");
     printw("Ton choix : ");
     refresh();
 
@@ -28,8 +27,7 @@ std::unique_ptr<Player> choisirClasse()
     case '2':
         return std::make_unique<Warrior>();
 
-    case '3':
-        return std::make_unique<WarriorMage>();
+    
 
     default:
         printw("\nChoix invalide ! Appuie sur une touche.");

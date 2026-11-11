@@ -3,6 +3,8 @@
 #include "Attack.h"
 #include "Mouvement.h"
 #include "Spell.h"
+#include "Mage.h"
+Mage mage;
 
 Player::Player(int life, int damage, int armorValue,
     int mana, int playerX, int playerY,
@@ -28,7 +30,7 @@ Player::Player(int life, int damage, int armorValue,
         Mana = Maxmana;
 }
 
-bool Mage::movementhero(Player& player, Level& level)
+bool Player::movementhero(Player& player, Level& level)
 {
     int key = getch();
 
@@ -41,12 +43,12 @@ bool Mage::movementhero(Player& player, Level& level)
     if (key == 'e' || key == 'E')
         return startSpellTargeting(player);
 
-    if (targetingSpell)
+    if (mage.targetingSpell)
     {
         if (key == '\n' || key == '\r' || key == KEY_ENTER)
         {
-            spellConfirmed = true;
-            targetingSpell = false;
+            mage.spellConfirmed = true;
+            mage.targetingSpell = false;
             return true;
         }
 

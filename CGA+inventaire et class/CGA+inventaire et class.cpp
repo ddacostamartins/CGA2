@@ -4,7 +4,10 @@
 // PROGRAMME PRINCIPAL
 // =========================
 
+
 int main()
 {
-    lancerjeu();
+    Jeu::getInstance().lancerjeu();
+
+    return 0;
 }

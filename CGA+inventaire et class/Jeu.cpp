@@ -1,24 +1,19 @@
 #include "Jeu.h"
-#include "FonctionJeu.h"
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
 #include <ctime>
-#include <memory>
-#include "ChoixClasse.h"
 #include <curses.h>
-#include "Map.h"
-#include "Spell.h"
 
+extern Mage mage;
 
-void lancerjeu()
+void Jeu::lancerjeu()
 {
     initialiserJeu();
 
-    std::unique_ptr<Player> player = choisirClasse();
+    player = choisirClasse();
 
-    Level level;
-    int currentLevel = 1;
+    currentLevel = 1;
 
     if (!initialiserNiveau(currentLevel, level, *player))
     {
@@ -29,12 +24,12 @@ void lancerjeu()
 
     displayMap(*player, level, currentLevel);
 
-    bool jeuEnCours = true;
+    jeuEnCours = true;
 
     while (jeuEnCours)
     {
-        // Mode de ciblage des sorts
-        if (targetingSpell)
+     
+        if (mage.targetingSpell)
         {
             gererCiblageSort(*player, level, currentLevel);
 
@@ -42,7 +37,7 @@ void lancerjeu()
             continue;
         }
 
-        // Déplacement du joueur
+     
         jeuEnCours = gererDeplacement(*player, level, currentLevel);
 
         Sleep(20);

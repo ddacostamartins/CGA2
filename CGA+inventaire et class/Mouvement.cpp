@@ -1,15 +1,16 @@
-#include "FonctionMouvement.h"
+#include "Mouvement.h"
 #include "Spell.h"
 #include "Map.h"
 #include <curses.h>
 #include "Attack.h"
-
+#include "Mage.h"
+Mage mage;
 bool handleEscape()
 {
-    if (targetingSpell)
+    if (mage.targetingSpell)
     {
-        targetingSpell = false;
-        spellCancelled = true;
+        mage.targetingSpell = false;
+        mage.spellCancelled = true;
         return true;
     }
 
@@ -27,7 +28,7 @@ bool startSpellTargeting(Player& player)
         return false;
     }
 
-    if (player.GetMana() < SPELL_COST)
+    if (player.GetMana() < mage.SPELL_COST)
     {
         mvprintw(MAP_HEIGHT + 8, 2,
             "Mana insuffisant ! Il faut 20 mana.");
@@ -35,9 +36,9 @@ bool startSpellTargeting(Player& player)
         return false;
     }
 
-    targetingSpell = true;
-    targetX = player.GetPositionX();
-    targetY = player.GetPositionY();
+    mage.targetingSpell = true;
+    mage.SetTargetX(player.GetPositionX());
+    mage.SetTargetY(player.GetPositionY());
 
     return true;
 }
@@ -46,22 +47,22 @@ bool moveSpellTarget(Player& player, int key)
 {
     switch (key)
     {
-    case 'z': case 'Z': targetY--; break;
-    case 's': case 'S': targetY++; break;
-    case 'q': case 'Q': targetX--; break;
-    case 'd': case 'D': targetX++; break;
+    case 'z': case 'Z': mage.SetTargetY(mage.GetTargetY() -1); break;
+    case 's': case 'S': mage.SetTargetY(mage.GetTargetY() + 1); break;
+    case 'q': case 'Q': mage.SetTargetX(mage.GetTargetX() - 1); break;
+    case 'd': case 'D': mage.SetTargetX(mage.GetTargetX() + 1); break;
     default:
         return false;
     }
 
-    targetX = max(player.GetPositionX() - SPELL_RADIUS,
-        min(targetX, player.GetPositionX() + SPELL_RADIUS));
+    mage.SetTargetX( max(player.GetPositionX() - mage.SPELL_RADIUS,
+        min(mage.GetTargetX(), player.GetPositionX() + mage.SPELL_RADIUS)));
 
-    targetY = max(player.GetPositionY() - SPELL_RADIUS,
-        min(targetY, player.GetPositionY() + SPELL_RADIUS));
+    mage.SetTargetY( max(player.GetPositionY() - mage.SPELL_RADIUS,
+        min(mage.GetTargetY(), player.GetPositionY() + mage.SPELL_RADIUS)));
 
-    targetX = max(0, min(targetX, MAP_WIDTH - 1));
-    targetY = max(0, min(targetY, MAP_HEIGHT - 1));
+    mage.SetTargetX( max(0, min(mage.GetTargetX(), MAP_WIDTH - 1)));
+    mage.SetTargetY(max(0, min(mage.GetTargetY(), MAP_WIDTH - 1)));
 
     return true;
 }

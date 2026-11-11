@@ -22,6 +22,5 @@ public:
     bool canMoveTo(const Level& level, int x, int y,
         int ignoredEnemy = -1,
         bool isHero = false);
-    bool movementhero(Player& player, Level& level);
     void enemymovement(Level& level);
 };
